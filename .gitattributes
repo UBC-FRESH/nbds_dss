@@ -1,3 +1,6 @@
 *.pkl filter=lfs diff=lfs merge=lfs -text
 *.dbf filter=lfs diff=lfs merge=lfs -text
 *.shp filter=lfs diff=lfs merge=lfs -text
+outputs/pickle/mining_site_1/*.pkl filter=lfs diff=lfs merge=lfs -text
+outputs/pickle/mining_site_2/*.pkl filter=lfs diff=lfs merge=lfs -text
+outputs/pickle/mining_site_3/*.pkl filter=lfs diff=lfs merge=lfs -text
