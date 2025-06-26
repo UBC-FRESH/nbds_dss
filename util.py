@@ -663,7 +663,7 @@ def gen_scenario(fm, clt_percentage=1.0,hwp_pool_effect_value=1.0, displacement_
 
 
 def run_scenario(fm, clt_percentage, hwp_pool_effect_value, displacement_effect, release_immediately_value, case_study, obj_mode, scenario_name='no_cons', solver=ws3.opt.SOLVER_PULP):
-    import gurobipy as grb
+    # import gurobipy as grb
     # initial_inv_ms1 = 869737. #ha
     initial_gs_ms1 = 106582957.  #m3   
     # initial_inv_ms3 = 390738. #ha
@@ -1108,8 +1108,8 @@ def stock_emission_scenario(fm, clt_percentage, credibility, budget_input, n_ste
     co2_concrete_manu_factor = 298.
     concrete_density = 2400 #kg/m3
     co2_concrete_landfill_factor = 0.00517 * concrete_density
-    sch_alt_scenario = run_scenario(fm, clt_percentage, hwp_pool_effect_value, displacement_effect, release_immediately_value, case_study, obj_mode, scenario_name, solver='gurobi')
-    # sch_alt_scenario = run_scenario(fm, clt_percentage, hwp_pool_effect_value, displacement_effect, release_immediately_value, case_study, obj_mode, scenario_name) #This uses pulp
+    # sch_alt_scenario = run_scenario(fm, clt_percentage, hwp_pool_effect_value, displacement_effect, release_immediately_value, case_study, obj_mode, scenario_name, solver='gurobi')
+    sch_alt_scenario = run_scenario(fm, clt_percentage, hwp_pool_effect_value, displacement_effect, release_immediately_value, case_study, obj_mode, scenario_name) #This uses pulp
 
     # df = compile_scenario(fm, case_study, obj_mode, scenario_name)
     # plot_scenario(df, case_study, obj_mode, scenario_name)
@@ -1636,56 +1636,56 @@ def cbm_report(fm, cbm_output):
     fig, axs = plt.subplots(8, 1, figsize=(10, 40))
 
     # Plot 1: Biomass Stock
-    axs[0].plot(merged_df.index, merged_df['Biomass'], label='Biomass Stock', color='green')
+    axs[0].plot(merged_df.index.to_numpy(), merged_df['Biomass'].to_numpy(), label='Biomass Stock', color='green')
     axs[0].set_title("Annual Biomass Stock")
     axs[0].set_xlabel("Year")
     axs[0].set_ylabel("Stock (ton C)")
     axs[0].set_xlim(0, n_steps)
 
     # Plot 2: DOM Stock
-    axs[1].plot(merged_df.index, merged_df['DOM'], label='DOM Stock', color='brown')
+    axs[1].plot(merged_df.index.to_numpy(), merged_df['DOM'].to_numpy(), label='DOM Stock', color='brown')
     axs[1].set_title("Annual DOM Stock")
     axs[1].set_xlabel("Year")
     axs[1].set_ylabel("Stock (ton C)")
     axs[1].set_xlim(0, n_steps)
 
     # Plot 3: Ecosystem Stock
-    axs[2].plot(merged_df.index, merged_df['Ecosystem'], label='Ecosystem Stock', color='blue')
+    axs[2].plot(merged_df.index.to_numpy(), merged_df['Ecosystem'].to_numpy(), label='Ecosystem Stock', color='blue')
     axs[2].set_title("Annual Ecosystem Stock")
     axs[2].set_xlabel("Year")
     axs[2].set_ylabel("Stock (ton C)")
     axs[2].set_xlim(0, n_steps)
 
     # Plot 4: All Emissions
-    axs[3].plot(merged_df.index, merged_df['All_Emissions'], label='All Emissions', color='red')
+    axs[3].plot(merged_df.index.to_numpy(), merged_df['All_Emissions'].to_numpy(), label='All Emissions', color='red')
     axs[3].set_title("Annual Total Ecosystem Carbon Emissions")
     axs[3].set_xlabel("Year")
     axs[3].set_ylabel("Emissions (ton C)")
     axs[3].set_xlim(0, n_steps)
 
     # Plot 5: Gross Growth
-    axs[4].plot(merged_df.index, merged_df['Gross_Growth'], label='Gross Growth', color='purple')
+    axs[4].plot(merged_df.index.to_numpy(), merged_df['Gross_Growth'].to_numpy(), label='Gross Growth', color='purple')
     axs[4].set_title("Annual Gross Growth")
     axs[4].set_xlabel("Year")
     axs[4].set_ylabel("Growth (ton C)")
     axs[4].set_xlim(0, n_steps)
 
     # Plot 6: Net Emissions
-    axs[5].plot(merged_df.index, merged_df['Net_Emissions'], label='Net Emissions', color='orange')
+    axs[5].plot(merged_df.index.to_numpy(), merged_df['Net_Emissions'].to_numpy(), label='Net Emissions', color='orange')
     axs[5].set_title("Annual Net Ecosystem Carbon Emissions")
     axs[5].set_xlabel("Year")
     axs[5].set_ylabel("Emissions (ton C)")
     axs[5].set_xlim(0, n_steps)
 
     # Plot 7: Stock Change
-    axs[6].plot(merged_df.index, merged_df['Stock_Change'], label='Stock Change', color='cyan')
+    axs[6].plot(merged_df.index.to_numpy(), merged_df['Stock_Change'].to_numpy(), label='Stock Change', color='cyan')
     axs[6].set_title("Annual Ecosystem Carbon Stock Change")
     axs[6].set_xlabel("Year")
     axs[6].set_ylabel("Stock Change (ton C)")
     axs[6].set_xlim(0, n_steps)
 
     # Plot 8: Harvested Carbon
-    axs[7].plot(merged_df.index, merged_df['Harvested_Carbon'], label='Harvested Carbon', color='magenta')
+    axs[7].plot(merged_df.index.to_numpy(), merged_df['Harvested_Carbon'].to_numpy(), label='Harvested Carbon', color='magenta')
     axs[7].set_title("Annual Harvested Carbon")
     axs[7].set_xlabel("Year")
     axs[7].set_ylabel("Harvested Carbon (ton C)")
@@ -1693,9 +1693,8 @@ def cbm_report(fm, cbm_output):
 
     # Comparison plot for Net Emissions vs (Stock Change - Harvested Carbon)
     plt.figure(figsize=(10, 6))
-    plt.plot(merged_df.index, merged_df['Net_Emissions'], label='Net Emissions', color='orange', linestyle='--')
-    plt.plot(merged_df.index, merged_df['Stock_Change_minus_Harvested_Carbon'], 
-             label='Stock Change - Harvested Carbon', color='blue')
+    plt.plot(merged_df.index.to_numpy(), merged_df['Net_Emissions'].to_numpy(), label='Net Emissions', color='orange', linestyle='--')
+    plt.plot(merged_df.index.to_numpy(), merged_df['Stock_Change_minus_Harvested_Carbon'].to_numpy(), label='Stock Change - Harvested Carbon', color='blue')
     plt.title("Comparison of Annual Net Emissions and Annual (Stock Change - Harvested Carbon)")
     plt.xlabel("Year")
     plt.ylabel("Carbon (ton C)")
@@ -1953,32 +1952,32 @@ def compare_ws3_cbm(fm, cbm_output, plots):
         ticks = np.arange(df_cbm['period'].min() - 1, df_cbm['period'].max() + 1, 2)
 
         # Ecosystem stock comparison
-        axs[0].plot(df_cbm['period'], df_cbm['eco_stock'], label='CBM Ecosystem Stock')
-        axs[0].plot(df_ws3['period'], df_ws3['eco_stock'], label='WS3 Ecosystem Stock')
+        axs[0].plot(df_cbm['period'].to_numpy(), df_cbm['eco_stock'].to_numpy(), label='CBM Ecosystem Stock')
+        axs[0].plot(df_ws3['period'].to_numpy(), df_ws3['eco_stock'].to_numpy(), label='WS3 Ecosystem Stock')
         axs[0].set_xlabel('Period')
         axs[0].set_ylabel('Stock (ton C)')
         axs[0].set_xticks(ticks)
         axs[0].legend()
 
         # Biomass stock comparison
-        axs[1].plot(df_cbm['period'], df_cbm['biomass_stock'], label='CBM Biomass Stock')
-        axs[1].plot(df_ws3['period'], df_ws3['biomass_stock'], label='WS3 Biomass Stock')
+        axs[1].plot(df_cbm['period'].to_numpy(), df_cbm['biomass_stock'].to_numpy(), label='CBM Biomass Stock')
+        axs[1].plot(df_ws3['period'].to_numpy(), df_ws3['biomass_stock'].to_numpy(), label='WS3 Biomass Stock')
         axs[1].set_xlabel('Period')
         axs[1].set_ylabel('Stock (ton C)')
         axs[1].set_xticks(ticks)
         axs[1].legend()
 
         # DOM stock comparison
-        axs[2].plot(df_cbm['period'], df_cbm['dom_stock'], label='CBM DOM Stock')
-        axs[2].plot(df_ws3['period'], df_ws3['dom_stock'], label='WS3 DOM Stock')
+        axs[2].plot(df_cbm['period'].to_numpy(), df_cbm['dom_stock'].to_numpy(), label='CBM DOM Stock')
+        axs[2].plot(df_ws3['period'].to_numpy(), df_ws3['dom_stock'].to_numpy(), label='WS3 DOM Stock')
         axs[2].set_xlabel('Period')
         axs[2].set_ylabel('Stock (ton C)')
         axs[2].set_xticks(ticks)
         axs[2].legend()
 
         # Net ecosystem carbon emission comparison
-        axs[3].plot(df_cbm['period'], df_cbm['net_emission'], label='CBM Net Ecosystem Emission')
-        axs[3].plot(df_ws3['period'], df_ws3['net_emission'], label='WS3 Net Ecosystem Emission')
+        axs[3].plot(df_cbm['period'].to_numpy(), df_cbm['net_emission'].to_numpy(), label='CBM Net Ecosystem Emission')
+        axs[3].plot(df_ws3['period'].to_numpy(), df_ws3['net_emission'].to_numpy(), label='WS3 Net Ecosystem Emission')
         axs[3].set_xlabel('Period')
         axs[3].set_ylabel('Emission (ton C)')
         axs[3].set_xticks(ticks)
