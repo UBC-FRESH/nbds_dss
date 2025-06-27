@@ -1,3 +1,6 @@
 [submodule "data"]
 	path = data
 	url = https://github.com/ubc-fresh/nbds_dss-data
+[submodule "outputs"]
+	path = outputs
+	url = https://github.com/UBC-FRESH/nbds_dss-outputs

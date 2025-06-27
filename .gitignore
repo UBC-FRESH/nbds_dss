@@ -173,6 +173,8 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-# temp data directories
+# temp directories
 data_/
 data__/
+outputs_/
+outputs__/
