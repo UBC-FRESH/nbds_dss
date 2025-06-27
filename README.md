@@ -88,9 +88,9 @@ datalad get outputs --recursive
 
 If you want to re-run the `00_woodstock_files_mining_site_*.ipynb` notebooks (optional--all output files generated from running these notebooks are included in the `data` folder), you will first need to unlock the affected files:
 ```bash
-datalad unlock woodstock_model_files_mining_site_1/*
-datalad unlock woodstock_model_files_mining_site_2/*
-datalad unlock woodstock_model_files_mining_site_3/*
+datalad unlock data/woodstock_model_files_mining_site_1/*
+datalad unlock data/woodstock_model_files_mining_site_2/*
+datalad unlock data/woodstock_model_files_mining_site_3/*
 ```
 
 If you want to re-run the `01_dss_build_compare_carbon_curve.ipynb` notebook (optional--all output files generated from running this notebook are included in the `data` folder), you will first need to unlock the affected files:
