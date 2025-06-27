@@ -95,5 +95,10 @@ datalad unlock data/woodstock_model_files_mining_site_3/*
 
 If you want to re-run the `01_dss_build_compare_carbon_curve.ipynb` notebook (optional--all output files generated from running this notebook are included in the `data` folder), you will first need to unlock the affected files:
 ```bash
-datalad unlock curves/*
+datalad unlock data/curves/*
+```
+
+If you want to re-run the `02_dss_build_scenarios.ipynb` notebook (optional--all output fiels generated from running this notebook are included in the `outputs` folder), you will firest need to unlock the affected files:
+```bash
+datalad unlock outputs/
 ```
